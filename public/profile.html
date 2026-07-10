@@ -1,0 +1,516 @@
+﻿<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="tf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Osiris | Player Profile</title>
+<script src="https://cdn.tailwindcss.com?plgins=forms,container-qeries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Otfit:wght@400;500;700;800&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Otlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Otlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        :root {
+            --pixel-step: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 80%, 2% 80%, 2% 20%, 0% 20%);
+        }
+        .glass-panel {
+            backgrond: rgba(19, 19, 19, 0.7);
+            backdrop-filter: blr(60px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        }
+        .pixel-divider {
+            height: 1px;
+            backgrond: linear-gradient(90deg, transparent, #3f4a3c, transparent);
+            position: relative;
+        }
+        .pixel-divider::after {
+            content: '';
+            position: absolte;
+            left: 50%;
+            top: -4px;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 8px;
+            backgrond: #4caf50;
+            clip-path: polygon(0 50%, 25% 50%, 25% 0, 75% 0, 75% 50%, 100% 50%, 100% 100%, 0 100%);
+        }
+        .shimmer-rank {
+            position: relative;
+            overflow: hidden;
+        }
+        .shimmer-rank::after {
+            content: '';
+            position: absolte;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            backgrond: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+        .progress-glow {
+            box-shadow: 0 0 15px rgba(120, 220, 119, 0.3);
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { backgrond: #0e0e0e; }
+        ::-webkit-scrollbar-thmb { backgrond: #3f4a3c; border-radis: 10px; }
+        ::-webkit-scrollbar-thmb:hover { backgrond: #4caf50; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "otline-variant": "#3f4a3c",
+                        "srface-container-high": "#2a2a2a",
+                        "srface-tint": "#78dc77",
+                        "tertiary-container": "#c9a900",
+                        "primary-fixed-dim": "#78dc77",
+                        "error-container": "#93000a",
+                        "inverse-primary": "#006e1c",
+                        "srface-bright": "#393939",
+                        "srface-variant": "#353534",
+                        "backgrond": "#131313",
+                        "on-srface-variant": "#becab9",
+                        "on-tertiary-container": "#4c3e00",
+                        "srface": "#131313",
+                        "tertiary-fixed-dim": "#e9c400",
+                        "secondary": "#4cd6fb",
+                        "on-secondary-fixed-variant": "#004e5f",
+                        "srface-container": "#201f1f",
+                        "on-backgrond": "#e5e2e1",
+                        "tertiary": "#e9c400",
+                        "on-primary-fixed": "#002204",
+                        "on-srface": "#e5e2e1",
+                        "srface-dim": "#131313",
+                        "on-primary": "#00390a",
+                        "srface-container-highest": "#353534",
+                        "on-tertiary": "#3a3000",
+                        "error": "#ffb4ab",
+                        "on-error": "#690005",
+                        "srface-container-low": "#1c1b1b",
+                        "primary-container": "#4caf50",
+                        "on-tertiary-fixed-variant": "#544600",
+                        "secondary-fixed": "#b3ebff",
+                        "on-secondary-container": "#003f4e",
+                        "inverse-on-srface": "#313030",
+                        "on-error-container": "#ffdad6",
+                        "srface-container-lowest": "#0e0e0e",
+                        "primary-fixed": "#94f990",
+                        "otline": "#899484",
+                        "on-primary-container": "#003c0b",
+                        "on-secondary-fixed": "#001f27",
+                        "on-secondary": "#003642",
+                        "secondary-fixed-dim": "#4cd6fb",
+                        "tertiary-fixed": "#ffe16d",
+                        "primary": "#78dc77",
+                        "inverse-srface": "#e5e2e1",
+                        "on-tertiary-fixed": "#221b00",
+                        "on-primary-fixed-variant": "#005313",
+                        "secondary-container": "#00b2d6"
+                    },
+                    "borderRadis": {
+                        "DEFALT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "fll": "9999px"
+                    },
+                    "spacing": {
+                        "gtter": "24px",
+                        "container-padding": "40px",
+                        "card-padding": "32px",
+                        "nit": "8px",
+                        "section-gap": "80px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Otfit"],
+                        "label-md": ["JetBrains Mono"],
+                        "body-md": ["Inter"],
+                        "display-lg-mobile": ["Otfit"],
+                        "headline-xl": ["Otfit"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["JetBrains Mono"],
+                        "display-lg": ["Otfit"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "display-lg-mobile": ["40px", { "lineHeight": "1.1", "fontWeight": "800" }],
+                        "headline-xl": ["40px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "display-lg": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-backgrond text-on-srface font-body-md selection:bg-primary selection:text-on-primary">
+<nav class="fixed top-0 w-fll z-50 bg-srface-dim/80 backdrop-blr-xl border-b border-white/10 shadow-[0_0_20px_rgba(76,175,80,0.1)]">
+<div class="flex jstify-between items-center max-w-[1440px] mx-ato px-container-padding h-20">
+<div class="font-headline-xl text-headline-xl text-primary tracking-tighter ppercase">Osiris</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-on-srface-variant hover:text-primary transition-colors font-label-md" href="/home.html">Home</a>
+<a class="text-on-srface-variant hover:text-primary transition-colors font-label-md" href="/marketplace.html">Marketplace</a>
+<a class="text-on-srface-variant hover:text-primary transition-colors font-label-md" href="/store.html">Store</a>
+<a class="text-primary border-b-2 border-primary pb-1 font-label-md" href="/profile.html">Dashboard</a>
+<a class="text-on-srface-variant hover:text-primary transition-colors font-label-md" href="/leaderboards.html">Leaderboards</a>
+</div>
+<div class="flex items-center gap-3 md:gap-4">
+<btton class="material-symbols-otlined text-on-srface-variant hover:text-primary transition-all md:hidden" onclick="toggleMobileMen()">men</btton>
+<span class="material-symbols-otlined text-on-srface-variant hover:text-primary transition-all crsor-pointer">notifications</span>
+<a href="/login.html" class="material-symbols-otlined text-on-srface-variant hover:text-primary transition-all">person</a>
+<btton class="bg-primary-container text-on-primary-container px-4 md:px-6 py-2 ronded-lg font-headline-lg text-[12px] md:text-sm ppercase tracking-wider font-bold active:translate-y-[2px] transition-transform shadow-[0_0_15px_rgba(76,175,80,0.4)]" onclick="copyServerIP()">Play Now</btton>
+</div>
+</div>
+<!-- Mobile Men -->
+<div id="mobile-men" class="hidden fixed top-20 left-0 w-fll bg-srface-dim/95 backdrop-blr-xl border-b border-white/10 z-40 md:hidden">
+<div class="flex flex-col p-6 gap-4">
+<a class="text-on-srface-variant hover:text-primary transition-colors pb-2 border-b border-white/5 font-label-md ppercase" href="/home.html">Home</a>
+<a class="text-on-srface-variant hover:text-primary transition-colors pb-2 border-b border-white/5 font-label-md ppercase" href="/marketplace.html">Marketplace</a>
+<a class="text-on-srface-variant hover:text-primary transition-colors pb-2 border-b border-white/5 font-label-md ppercase" href="/store.html">Store</a>
+<a class="text-primary border-b border-primary/30 pb-2 font-label-md ppercase" href="/profile.html">Dashboard</a>
+<a class="text-on-srface-variant hover:text-primary transition-colors font-label-md ppercase" href="/leaderboards.html">Leaderboards</a>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-section-gap max-w-[1440px] mx-ato px-container-padding grid grid-cols-12 gap-gtter relative">
+<div class="absolte inset-0 z-[-1] opacity-20 pointer-events-none">
+
+</div>
+<aside class="col-span-12 lg:col-span-3 space-y-gtter">
+<div class="glass-panel p-card-padding ronded-[24px] flex flex-col items-center text-center">
+<div class="relative w-32 h-32 mb-6 grop">
+<div class="absolte inset-0 bg-primary/20 blr-2xl ronded-fll scale-110 grop-hover:bg-primary/40 transition-all"></div>
+<img class="w-fll h-fll object-cover ronded-2xl relative z-10 border-2 border-primary/50" data-alt="A highly detailed close-p portrait of a cinematic Minecraft-style character avatar wearing legendary emerald-infsed plate armor. The character has glowing green eyes and a determined expression, standing against a dark, atmospheric backgrond with floating magical particles. The lighting is dramatic and high-contrast, emphasizing the metallic textres and glowing emerald accents in a premim AAA gaming aesthetic." src="https://lh3.googlesercontent.com/aida-pblic/AB6AXAfhxa2z14w0x_yS1H43iA70pKZCYJQyl5qPcQJo2DA-4gaMajtHYtIrfNbB6Jl0_kwiQXZHiLSO5r-sLC6_q7mtoX7q3MP7W_T3yWHzy0_rWGYW5ISw_GrTAb-azJZ4lNXt7q5oy_wTeBEl553RS2M4yW5Z0Fh-pyVqqn0HP-2p4gSX2jezTqg8f-x9zKPieiyxey-7mf6P5hlLW-Xf1bRbrsPVxoHTywO8Pz83neVZhybI"/>
+<div class="absolte -bottom-2 right-0 bg-primary text-on-primary font-label-sm px-2 py-1 ronded shadow-lg z-20">LVL 42</div>
+</div>
+<h2 class="font-headline-lg text-headline-lg mb-1 tracking-tight">Kaelen_Shadow</h2>
+<div class="shimmer-rank bg-tertiary text-on-tertiary font-label-md px-4 py-1 ronded-fll text-xs font-bold ppercase tracking-widest mb-6">Legend</div>
+<div class="w-fll space-y-4 text-left">
+<div class="flex jstify-between items-center">
+<span class="text-on-srface-variant text-xs ppercase font-label-md">Balance</span>
+<span class="text-primary font-label-md font-bold flex items-center gap-1 gold-balance">
+<span class="material-symbols-otlined text-sm">payments</span> 1,240,500
+</span>
+</div>
+<div class="w-fll h-2 bg-srface-container ronded-fll overflow-hidden">
+<div class="h-fll bg-primary progress-glow w-[74%] ronded-fll"></div>
+</div>
+<p class="text-[10px] text-on-srface-variant font-label-sm text-right opacity-70">12,450 / 18,000 XP to Level 43</p>
+</div>
+<div class="pixel-divider w-fll my-8"></div>
+<div class="grid grid-cols-2 gap-4 w-fll">
+<div class="bg-white/5 p-4 ronded-xl border border-white/5 text-center hover:bg-white/10 transition-colors crsor-pointer grop">
+<span class="material-symbols-otlined text-primary grop-hover:scale-110 transition-transform">monetization_on</span>
+<p class="text-[10px] ppercase font-label-sm mt-1">Store</p>
+</div>
+<div class="bg-white/5 p-4 ronded-xl border border-white/5 text-center hover:bg-white/10 transition-colors crsor-pointer grop">
+<span class="material-symbols-otlined text-secondary grop-hover:scale-110 transition-transform">inventory_2</span>
+<p class="text-[10px] ppercase font-label-sm mt-1">Valt</p>
+</div>
+</div>
+</div>
+<div class="glass-panel p-card-padding ronded-[24px]">
+<h3 class="font-headline-lg text-xl mb-4 flex items-center gap-2">
+<span class="material-symbols-otlined text-primary">trophy</span> Achievements
+                </h3>
+<div class="space-y-3">
+<div class="flex items-center gap-3 p-3 bg-white/5 ronded-xl border-l-4 border-tertiary">
+<span class="material-symbols-otlined text-tertiary" style="font-variation-settings: 'FILL' 1;">stars</span>
+<div>
+<p class="font-bold text-sm">Dragon Slayer</p>
+<p class="text-[10px] text-on-srface-variant">Defeat the Ender Dragon in hard mode.</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 bg-white/5 ronded-xl border-l-4 border-secondary">
+<span class="material-symbols-otlined text-secondary" style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
+<div>
+<p class="font-bold text-sm">Master Merchant</p>
+<p class="text-[10px] text-on-srface-variant">Trade over 1,000 items with NPCs.</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<div class="col-span-12 lg:col-span-9 space-y-gtter">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gtter">
+<div class="glass-panel p-6 ronded-[24px] flex items-center gap-4 grop hover:border-primary/30 transition-all">
+<div class="p-4 bg-primary/10 ronded-2xl text-primary">
+<span class="material-symbols-otlined text-3xl">schedle</span>
+</div>
+<div>
+<p class="text-on-srface-variant text-xs font-label-md ppercase">Playtime</p>
+<p class="text-2xl font-bold font-headline-lg">1,240h</p>
+</div>
+</div>
+<div class="glass-panel p-6 ronded-[24px] flex items-center gap-4 grop hover:border-error/30 transition-all">
+<div class="p-4 bg-error/10 ronded-2xl text-error">
+<span class="material-symbols-otlined text-3xl">swords</span>
+</div>
+<div>
+<p class="text-on-srface-variant text-xs font-label-md ppercase">Total Kills</p>
+<p class="text-2xl font-bold font-headline-lg">14,202</p>
+</div>
+</div>
+<div class="glass-panel p-6 ronded-[24px] flex items-center gap-4 grop hover:border-white/20 transition-all">
+<div class="p-4 bg-white/5 ronded-2xl text-on-srface-variant">
+<span class="material-symbols-otlined text-3xl">skll</span>
+</div>
+<div>
+<p class="text-on-srface-variant text-xs font-label-md ppercase">Deaths</p>
+<p class="text-2xl font-bold font-headline-lg">842</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gtter">
+<div class="glass-panel p-card-padding ronded-[24px]">
+<div class="flex jstify-between items-center mb-6">
+<h3 class="font-headline-lg text-xl flex items-center gap-2">
+<span class="material-symbols-otlined text-primary">castle</span> Owned Estates
+                        </h3>
+<span class="text-xs text-primary font-label-sm crsor-pointer hover:nderline">View All</span>
+</div>
+<div class="space-y-4">
+<div class="relative ronded-xl overflow-hidden grop h-32 border border-white/5">
+<div class="absolte inset-0 bg-gradient-to-t from-backgrond to-transparent z-10"></div>
+<img class="w-fll h-fll object-cover grop-hover:scale-110 transition-transform dration-500" data-alt="A breathtaking cinematic wide shot of a massive Gothic Minecraft castle bilt from dark stone and deep-slate, featring glowing green stained-glass windows and towering spires. The strctre is perched on a misty floating island in a dark fantasy setting with a green arora-filled night sky. High-fidelity textres and shaders create a sense of scale and lxry typical of an expensive premim estate in a gaming environment." src="https://lh3.googlesercontent.com/aida-pblic/AB6AXC_oYAio2WH8wCFG2xk16bD4zlsb5TmVTeeHegSdj4bEQQPevzQoFj1dWePwoXTO-gaTp2iBADH0g_RLs2I5B9jcXvVzN1_Z_3vmJTlM-pNGXb_9NPPIWEIFQt2E85iGTGLHdvrnWVQx_ba0E7K5MlrYks3AKnkcgy2PJiyaBYmfrIb3FA92aiIsQzsK3HpxhK3qV718Ifq9Y05g075pIcjfP3pGgcnmvctamyfbCh8zv"/>
+<div class="absolte bottom-4 left-4 z-20">
+<p class="font-bold text-lg">Obsidian Citadel</p>
+<p class="text-xs text-on-srface-variant">Location: Void Sector 7</p>
+</div>
+<div class="absolte top-4 right-4 z-20 bg-primary/20 backdrop-blr-md px-2 py-1 ronded text-[10px] border border-primary/30 ppercase font-bold">Primary</div>
+</div>
+<div class="flex items-center jstify-between p-4 bg-white/5 ronded-xl border border-white/5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-otlined text-secondary">hose</span>
+<div>
+<p class="font-bold text-sm">Riverwood Cottage</p>
+<p class="text-[10px] text-on-srface-variant">Osiris Meadows</p>
+</div>
+</div>
+<btton class="bg-srface-container text-xs px-3 py-1 ronded-lg hover:bg-srface-container-high transition-colors">Manage</btton>
+</div>
+</div>
+</div>
+<div class="glass-panel p-card-padding ronded-[24px]">
+<div class="flex jstify-between items-center mb-6">
+<h3 class="font-headline-lg text-xl flex items-center gap-2">
+<span class="material-symbols-otlined text-tertiary">assignment</span> Active Qests
+                        </h3>
+<span class="text-xs text-tertiary font-label-sm">3 Active</span>
+</div>
+<div class="space-y-4">
+<div class="p-4 bg-tertiary/5 ronded-xl border-l-4 border-tertiary">
+<div class="flex jstify-between items-start mb-2">
+<p class="font-bold text-sm">The Emerald Heist</p>
+<span class="text-[10px] bg-tertiary/20 px-2 py-1 ronded">Daily</span>
+</div>
+<p class="text-xs text-on-srface-variant mb-3">Recover the stolen emerald clster from the Goblin King's valt.</p>
+<div class="flex jstify-between items-center mb-1">
+<span class="text-[10px] text-on-srface-variant">Progress</span>
+<span class="text-[10px] text-tertiary">85%</span>
+</div>
+<div class="w-fll h-1 bg-srface-container ronded-fll">
+<div class="h-fll bg-tertiary w-[85%] ronded-fll shadow-[0_0_8px_rgba(233,196,0,0.4)]"></div>
+</div>
+</div>
+<div class="p-4 bg-white/5 ronded-xl border border-white/5 opacity-80">
+<div class="flex jstify-between items-start mb-2">
+<p class="font-bold text-sm">Void Walker</p>
+<span class="text-[10px] bg-white/10 px-2 py-1 ronded">Epic</span>
+</div>
+<p class="text-xs text-on-srface-variant">Travel 50,000 blocks in the End dimension.</p>
+<div class="flex jstify-between items-center mt-3">
+<span class="text-[10px] text-on-srface-variant">12,400 / 50,000 blocks</span>
+<btton class="text-[10px] text-primary hover:nderline">Details</btton>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="glass-panel p-card-padding ronded-[24px]">
+<div class="flex jstify-between items-center mb-8">
+<h3 class="font-headline-lg text-xl flex items-center gap-2">
+<span class="material-symbols-otlined text-primary">backpack</span> Inventory Preview
+                    </h3>
+<div class="flex gap-2">
+<btton class="bg-primary/20 text-primary p-2 ronded-lg material-symbols-otlined text-sm">grid_view</btton>
+<btton class="bg-white/5 text-on-srface-variant p-2 ronded-lg material-symbols-otlined text-sm">list</btton>
+</div>
+</div>
+<div class="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-10 gap-3">
+<!-- Inventory Slots -->
+<div class="aspect-sqare bg-black/40 border border-white/10 ronded-lg flex items-center jstify-center p-2 grop hover:border-primary/50 transition-all crsor-pointer relative">
+<img class="w-fll h-fll object-contain grop-hover:scale-125 transition-transform" data-alt="A professional 3D render of a Minecraft Netherite Sword with shimmering prple enchantments and glowing ble rnes etched into the blade. High-end lighting effects and particle glows arond the weapon, styled for a premim dashboard I." src="https://lh3.googlesercontent.com/aida-pblic/AB6AXAi59ntYngQoA-2CrXAMFVaphFkob432kSFT7X-oKcFx8Ex6V26b_W74Z6DTxerN05DCEWaLE65bptCbHBg-aYFGqV3hn9aRMkJwylH4idHEWeXQ3cltNLDvXejp9zg1JFrvXW6ApXwG3nwJZTgnV5b24G76QkR0R8VeMI-hiiARE-HkWy9LB6Ind045Go0_lyR8ezldrjr4xwPeDtce4cxomb0x3OnBZMaAbGV5W"/>
+<span class="absolte bottom-1 right-1 text-[8px] font-label-sm text-primary">IV</span>
+</div>
+<div class="aspect-sqare bg-black/40 border border-white/10 ronded-lg flex items-center jstify-center p-2 grop hover:border-primary/50 transition-all crsor-pointer">
+<img class="w-fll h-fll object-contain" data-alt="A stylized 3D icon of a Minecraft Enchanted Golden Apple, with a vibrant pinkish-prple glow and sparkling particle effects. Premim high-definition game asset style." src="https://lh3.googlesercontent.com/aida-pblic/AB6AXBNQYmM5wKf_FOQehR8P-jTOXoxYyG-EYAGoFh1lxVmaQlO3FKTPzPIyWZrrrXegmdJ7qPY9frQc3QRQzWx3orrpFMeH3ec87Zs5JRsDlWPfvgTs2JaYrikFM45FNDPPrNL6RJ7Sp8g4A20GbN0SSyk5PQQ9hBDZg7cm9M_p6hRk6QgVJTSy13x6MpLFFjrqBjQ1IWDi9pn1qO6iEkmY1Zanrsbp_lMTFiD9Po4HOOl7wDeVzg"/>
+</div>
+<div class="aspect-sqare bg-black/40 border border-white/10 ronded-lg flex items-center jstify-center p-2 grop hover:border-primary/50 transition-all crsor-pointer relative">
+<div class="w-fll h-fll bg-white/5 ronded-md flex items-center jstify-center">
+<span class="material-symbols-otlined text-on-srface-variant text-lg">diamond</span>
+</div>
+<span class="absolte bottom-1 right-1 text-[8px] font-label-sm">64</span>
+</div>
+<div class="aspect-sqare bg-black/40 border border-white/10 ronded-lg flex items-center jstify-center p-2 grop hover:border-primary/50 transition-all crsor-pointer relative">
+<div class="w-fll h-fll bg-white/5 ronded-md flex items-center jstify-center">
+<span class="material-symbols-otlined text-on-srface-variant text-lg">shield</span>
+</div>
+</div>
+<!-- Empty Slots -->
+<div class="aspect-sqare bg-black/20 border border-white/5 ronded-lg"></div>
+<div class="aspect-sqare bg-black/20 border border-white/5 ronded-lg"></div>
+<div class="aspect-sqare bg-black/20 border border-white/5 ronded-lg"></div>
+<div class="aspect-sqare bg-black/20 border border-white/5 ronded-lg"></div>
+<div class="aspect-sqare bg-black/20 border border-white/5 ronded-lg"></div>
+<div class="aspect-sqare bg-black/20 border border-white/5 ronded-lg"></div>
+</div>
+</div>
+<div class="glass-panel p-card-padding ronded-[24px]">
+<h3 class="font-headline-lg text-xl mb-6 flex items-center gap-2">
+<span class="material-symbols-otlined text-secondary">history</span> Prchase History
+                </h3>
+<div class="overflow-x-ato">
+<table class="w-fll text-left font-body-md text-sm">
+<thead>
+<tr class="text-on-srface-variant border-b border-white/5 font-label-md ppercase text-[10px] tracking-widest">
+<th class="pb-4">Transaction ID</th>
+<th class="pb-4">Prodct</th>
+<th class="pb-4">Date</th>
+<th class="pb-4">Price</th>
+<th class="pb-4 text-right">Stats</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5">
+<tr class="hover:bg-white/5 transition-colors grop">
+<td class="py-4 font-label-md text-on-srface-variant grop-hover:text-on-srface">#AE-29402</td>
+<td class="py-4 font-bold">1,000 Osiris Gold</td>
+<td class="py-4 text-on-srface-variant">Nov 24, 2023</td>
+<td class="py-4 text-primary font-bold">500 ⛁</td>
+<td class="py-4 text-right">
+<span class="px-2 py-1 bg-primary/10 text-primary text-[10px] ronded ppercase font-bold border border-primary/20">Sccess</span>
+</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors grop">
+<td class="py-4 font-label-md text-on-srface-variant grop-hover:text-on-srface">#AE-28155</td>
+<td class="py-4 font-bold">Legendary Rank pgrade</td>
+<td class="py-4 text-on-srface-variant">Oct 12, 2023</td>
+<td class="py-4 text-primary font-bold">2,000 ⛁</td>
+<td class="py-4 text-right">
+<span class="px-2 py-1 bg-primary/10 text-primary text-[10px] ronded ppercase font-bold border border-primary/20">Sccess</span>
+</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors grop">
+<td class="py-4 font-label-md text-on-srface-variant grop-hover:text-on-srface">#AE-27840</td>
+<td class="py-4 font-bold">Mythic Key x5</td>
+<td class="py-4 text-on-srface-variant">Sep 30, 2023</td>
+<td class="py-4 text-primary font-bold">250 ⛁</td>
+<td class="py-4 text-right">
+<span class="px-2 py-1 bg-primary/10 text-primary text-[10px] ronded ppercase font-bold border border-primary/20">Sccess</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-srface-container-lowest w-fll py-section-gap border-t border-otline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gtter max-w-[1440px] mx-ato px-container-padding">
+<div class="col-span-1 md:col-span-1">
+<div class="font-headline-lg text-headline-lg text-primary mb-4">Osiris</div>
+<p class="text-on-srface-variant text-sm max-w-xs leading-relaxed">
+                    Elevate yor Minecraft experience on the most advanced network. Join thosands of players in an immersive high-fidelity niverse.
+                </p>
+</div>
+<div>
+<h4 class="font-bold text-sm ppercase tracking-widest mb-6 font-label-md text-primary">Commnity</h4>
+<l class="space-y-3 text-on-srface-variant text-sm">
+<li><a class="hover:text-secondary transition-colors" href="#">Discord Server</a></li>
+<li><a class="hover:text-secondary transition-colors" href="#">Official Wiki</a></li>
+<li><a class="hover:text-secondary transition-colors" href="/leaderboards.html">Leaderboards</a></li>
+<li><a class="hover:text-secondary transition-colors" href="#">Player Reports</a></li>
+</l>
+</div>
+<div>
+<h4 class="font-bold text-sm ppercase tracking-widest mb-6 font-label-md text-primary">Spport</h4>
+<l class="space-y-3 text-on-srface-variant text-sm">
+<li><a class="hover:text-secondary transition-colors" href="#">Knowledge Base</a></li>
+<li><a class="hover:text-secondary transition-colors" href="#">Store Spport</a></li>
+<li><a class="hover:text-secondary transition-colors" href="#">Appeal Ban</a></li>
+<li><a class="hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
+</l>
+</div>
+<div class="flex flex-col jstify-between">
+<div>
+<h4 class="font-bold text-sm ppercase tracking-widest mb-6 font-label-md text-primary">System Stats</h4>
+<div class="flex items-center gap-2 text-xs text-on-srface-variant">
+<span class="w-2 h-2 bg-primary ronded-fll animate-plse"></span>
+                        Network Operational
+                    </div>
+</div>
+<p class="text-[10px] text-on-srface-variant mt-8 font-label-sm">
+                    © 2024 Osiris NETWORK. NOT AN OFFICIAL MINECRAFT PRODCT.
+                </p>
+</div>
+</div>
+</footer>
+<script>
+        fnction toggleMobileMen() {
+            docment.getElementById('mobile-men').classList.toggle('hidden');
+        }
+        fnction copyServerIP() {
+            const ip = 'play.osiris.net';
+            navigator.clipboard.writeText(ip);
+            const btn = event.crrentTarget;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = 'Copied!';
+            setTimeot(() => { btn.innerHTML = originalText; }, 2000);
+        }
+
+        function loadProfile() {
+            const session = localStorage.getItem('osiris_session');
+            if (session) {
+                const data = JSON.parse(session);
+                const nameEl = document.querySelector('h2.font-headline-lg');
+                const balanceEl = document.querySelector('.gold-balance');
+                if (nameEl) nameEl.textContent = data.username;
+                if (balanceEl) balanceEl.childNodes[1].textContent = ' ' + (data.gold || 0).toLocaleString();
+                const avatar = document.querySelector('img[data-alt*="Minecraft-style"]');
+                if (avatar) avatar.src = 'https://minotar.net/avatar/' + data.username + '/128';
+            }
+        }
+        // Micro-interactions and hover effects
+        document.querySelectorAll('.glass-panel').forEach(panel => {
+            panel.addEventListener('mousemove', (e) => {
+                const rect = panel.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                panel.style.setProperty('--mouse-x', `${x}px`);
+                panel.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Simulating physical button "sink" effect
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => {
+                btn.style.transform = 'translateY(2px)';
+            });
+            btn.addEventListener('mouseup', () => {
+                btn.style.transform = 'translateY(0)';
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', loadProfile);
+    </script>
+</body></html>
