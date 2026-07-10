@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Global Leaderboards | Osiris NETWORK</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500;600&amp;family=Outfit:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+        }
+        .pixel-divider {
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+        .pixel-divider::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: -7px;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 16px;
+            background: #131313;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 100%, 50% 50%, 0% 50%);
+        }
+        .glass-card {
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(60px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        }
+        .rank-shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        .rank-shimmer::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.1) 45%,
+                rgba(255, 255, 255, 0.2) 50%,
+                rgba(255, 255, 255, 0.1) 55%,
+                transparent 100%
+            );
+            transform: rotate(25deg);
+            animation: shimmer 4s infinite;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(25deg); }
+            100% { transform: translateX(100%) rotate(25deg); }
+        }
+        .stat-bar-fill {
+            transition: width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                "outline-variant": "#3f4a3c",
+                "surface-container-high": "#2a2a2a",
+                "surface-tint": "#78dc77",
+                "tertiary-container": "#c9a900",
+                "primary-fixed-dim": "#78dc77",
+                "error-container": "#93000a",
+                "inverse-primary": "#006e1c",
+                "surface-bright": "#393939",
+                "surface-variant": "#353534",
+                "background": "#131313",
+                "on-surface-variant": "#becab9",
+                "on-tertiary-container": "#4c3e00",
+                "surface": "#131313",
+                "tertiary-fixed-dim": "#e9c400",
+                "secondary": "#4cd6fb",
+                "on-secondary-fixed-variant": "#004e5f",
+                "surface-container": "#201f1f",
+                "on-background": "#e5e2e1",
+                "tertiary": "#e9c400",
+                "on-primary-fixed": "#002204",
+                "on-surface": "#e5e2e1",
+                "surface-dim": "#131313",
+                "on-primary": "#00390a",
+                "surface-container-highest": "#353534",
+                "on-tertiary": "#3a3000",
+                "error": "#ffb4ab",
+                "on-error": "#690005",
+                "surface-container-low": "#1c1b1b",
+                "primary-container": "#4caf50",
+                "on-tertiary-fixed-variant": "#544600",
+                "secondary-fixed": "#b3ebff",
+                "on-secondary-container": "#003f4e",
+                "inverse-on-surface": "#313030",
+                "on-error-container": "#ffdad6",
+                "surface-container-lowest": "#0e0e0e",
+                "primary-fixed": "#94f990",
+                "outline": "#899484",
+                "on-primary-container": "#003c0b",
+                "on-secondary-fixed": "#001f27",
+                "on-secondary": "#003642",
+                "secondary-fixed-dim": "#4cd6fb",
+                "tertiary-fixed": "#ffe16d",
+                "primary": "#78dc77",
+                "inverse-surface": "#e5e2e1",
+                "on-tertiary-fixed": "#221b00",
+                "on-primary-fixed-variant": "#005313",
+                "secondary-container": "#00b2d6"
+              },
+              "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+              },
+              "spacing": {
+                "gutter": "24px",
+                "container-padding": "40px",
+                "card-padding": "32px",
+                "unit": "8px",
+                "section-gap": "80px"
+              },
+              "fontFamily": {
+                "headline-lg": ["Outfit"],
+                "label-md": ["JetBrains Mono"],
+                "body-md": ["Inter"],
+                "display-lg-mobile": ["Outfit"],
+                "headline-xl": ["Outfit"],
+                "body-lg": ["Inter"],
+                "label-sm": ["JetBrains Mono"],
+                "display-lg": ["Outfit"]
+              },
+              "fontSize": {
+                "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                "display-lg-mobile": ["40px", {"lineHeight": "1.1", "fontWeight": "800"}],
+                "headline-xl": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+              }
+            }
+          }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary selection:text-on-primary">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface-dim/80 backdrop-blur-xl border-b border-white/10 shadow-[0_0_20px_rgba(76,175,80,0.1)]">
+<div class="flex justify-between items-center max-w-[1440px] mx-auto px-container-padding h-20">
+<div class="font-headline-xl text-headline-xl text-primary tracking-tighter uppercase">Osiris</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="/home.html">Home</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="/marketplace.html">Marketplace</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="/store.html">Store</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="/profile.html">Dashboard</a>
+<a class="font-label-md text-label-md text-primary border-b-2 border-primary pb-1" href="/leaderboards.html">Leaderboards</a>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4 text-on-surface-variant">
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-all">notifications</span>
+<a href="/login.html" class="material-symbols-outlined cursor-pointer hover:text-primary transition-all">person</a>
+</div>
+<button class="bg-primary-container text-on-primary-container px-6 py-2 rounded-lg font-headline-lg text-[16px] uppercase tracking-wider hover:brightness-110 active:translate-y-[2px] transition-all shadow-[0_0_15px_rgba(76,175,80,0.3)]" onclick="copyServerIP()">
+                    Play Now
+                </button>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-section-gap max-w-[1440px] mx-auto px-container-padding">
+<!-- Header & Category Selection -->
+<header class="mb-section-gap flex flex-col md:flex-row justify-between items-end gap-gutter">
+<div>
+<h1 class="font-display-lg text-display-lg text-white mb-4">Hall of <span class="text-primary">Legends</span></h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">The elite of Osiris. Track the progress of the top 1% of our network as they compete for total dominance across our realms.</p>
+</div>
+<div class="flex bg-surface-container-high rounded-xl p-1.5 border border-white/5">
+<button class="px-6 py-2.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md shadow-lg transition-all">Top Richest</button>
+<button class="px-6 py-2.5 rounded-lg text-on-surface-variant hover:text-white font-label-md text-label-md transition-all">Highest Level</button>
+<button class="px-6 py-2.5 rounded-lg text-on-surface-variant hover:text-white font-label-md text-label-md transition-all">Top Guilds</button>
+</div>
+</header>
+<!-- Top 3 Players Podium -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-section-gap items-end">
+<!-- Rank 2 -->
+<div class="order-2 md:order-1 glass-card rounded-[24px] p-card-padding text-center relative group hover:border-primary transition-all duration-500">
+<div class="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 rounded-full border-4 border-slate-400 bg-surface overflow-hidden shadow-[0_0_30px_rgba(148,163,184,0.2)]">
+<img class="w-full h-full object-cover" data-alt="A highly detailed 3D Minecraft character avatar with silver-trimmed enchanted armor, looking determined. The lighting is soft and cinematic with cool blue tones, reflecting a high-prestige silver rank in a premium gaming interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWvjOdqrhgZ3Xoe9DKte8_JvcknYX5TTbpQ_L1GRxA1TEJtVMAU_kpPSQQqmKNRh9XUmxMEhPHavZawHLJuGrb5wn5B2arTYHZ7qy1c_RYx-06C6TT3dhggS58zdu_3cKQWDxvt-FLd9OlczkSq3J1Hy9jpeF5ba8pP8aqFjqyez55g8Sm7S_ckQ5uCb4QFSebS0kjwsTgVxDyDhv9kEU0YCh2-wdnJ356aTIZ-WFqAt7OPGNIdyae"/>
+</div>
+<div class="mt-12 mb-6">
+<span class="inline-flex px-3 py-1 bg-slate-400/20 text-slate-400 border border-slate-400/30 rounded-full font-label-sm text-label-sm uppercase mb-3 rank-shimmer">Silver Rank</span>
+<h3 class="font-headline-lg text-headline-lg text-white">XenonBlade</h3>
+<p class="font-label-md text-label-md text-secondary">Osiris Elite</p>
+</div>
+<div class="pixel-divider mb-6"></div>
+<div class="flex justify-between items-center text-on-surface-variant font-label-sm uppercase tracking-widest">
+<span>Balance</span>
+<span class="text-white font-label-md">1.2M <span class="text-primary">⛁</span></span>
+</div>
+<div class="mt-4 h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="stat-bar-fill h-full bg-slate-400" style="width: 82%"></div>
+</div>
+</div>
+<!-- Rank 1 -->
+<div class="order-1 md:order-2 glass-card rounded-[24px] p-card-padding text-center relative group border-primary/50 bg-primary/5 scale-105 shadow-[0_0_50px_rgba(76,175,80,0.15)] z-10">
+<div class="absolute -top-16 left-1/2 -translate-x-1/2 w-32 h-32 rounded-full border-4 border-tertiary bg-surface overflow-hidden shadow-[0_0_40px_rgba(233,196,0,0.3)]">
+<img class="w-full h-full object-cover" data-alt="A heroic 3D Minecraft character avatar wearing full Netherite armor with glowing gold filigree and a crown. The lighting is dramatic and warm, with gold particles floating around, signifying the top player status in a prestigious dark gaming dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDToD_HcRysBWQ3VUWRXasFsgXMHvJNo6zoq0oASGt_cu_VsRLkd5oD1kGoTVP8yUbyuoBjEox59YguidybwCg8IXv92HP4k0oLEqMw3rCZCVFKkR8_TF3uhs7_KjbTIGSlky7wv96uhmMT-R0gUSzXC0HBBbdqE8Zt0Kw3bqrzZ8kd8TU0zhbSQsTD1C5nizjoaBlBJzVWmeYplGVsRfjuvJTEHu9SzpBvW9n-sL0t0YGBBXrTMfoJ"/>
+</div>
+<div class="mt-16 mb-6">
+<span class="inline-flex px-4 py-1.5 bg-tertiary/20 text-tertiary border border-tertiary/30 rounded-full font-label-md text-label-md uppercase mb-3 rank-shimmer">Grand Champion</span>
+<h3 class="font-display-lg-mobile text-display-lg-mobile text-white leading-tight">Shadow_Monarch</h3>
+<p class="font-label-md text-label-md text-primary">Osiris Staff</p>
+</div>
+<div class="pixel-divider mb-6"></div>
+<div class="flex justify-between items-center text-on-surface-variant font-label-sm uppercase tracking-widest">
+<span>Balance</span>
+<span class="text-white font-label-md">4.5M <span class="text-primary">⛁</span></span>
+</div>
+<div class="mt-4 h-2 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="stat-bar-fill h-full bg-tertiary" style="width: 95%"></div>
+</div>
+</div>
+<!-- Rank 3 -->
+<div class="order-3 glass-card rounded-[24px] p-card-padding text-center relative group hover:border-primary transition-all duration-500">
+<div class="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 rounded-full border-4 border-amber-700 bg-surface overflow-hidden shadow-[0_0_30px_rgba(180,83,9,0.2)]">
+<img class="w-full h-full object-cover" data-alt="A 3D Minecraft character avatar with bronze-detailed battle gear and a glowing green potion effect. The lighting is earthy and vibrant, emphasizing a competitive bronze-tier achievement on a professional gaming leaderboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDy5lzTa02uQUwb-Nho_JnHZ7Cbp45tkfsL92KeyBuJw9Wl4fs22h4pjFBdMKVV5T2PCL4DE9lHSlTVAGmjJxXi2ENUkk0rwMtUZxeQezmxFwNVFwiCzI-a2tdaCO3NXnMHa3rZaXEr_wpqV1RSE1E-wSYozE5mxLgzNq6-jFS2k8DhaEhjBwsckf38f6OT1Z2DegXsJDk24YqjhPCiekGZMLK4uso5XxSwWJRbkzvllyfxfPa-5YR"/>
+</div>
+<div class="mt-12 mb-6">
+<span class="inline-flex px-3 py-1 bg-amber-700/20 text-amber-700 border border-amber-700/30 rounded-full font-label-sm text-label-sm uppercase mb-3 rank-shimmer">Bronze Rank</span>
+<h3 class="font-headline-lg text-headline-lg text-white">Valkyrie_OG</h3>
+<p class="font-label-md text-label-md text-secondary">Knight Rank</p>
+</div>
+<div class="pixel-divider mb-6"></div>
+<div class="flex justify-between items-center text-on-surface-variant font-label-sm uppercase tracking-widest">
+<span>Balance</span>
+<span class="text-white font-label-md">890K <span class="text-primary">⛁</span></span>
+</div>
+<div class="mt-4 h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="stat-bar-fill h-full bg-amber-700" style="width: 74%"></div>
+</div>
+</div>
+</section>
+<!-- Search & Filter Bar -->
+<div class="glass-card rounded-[24px] p-6 mb-gutter flex flex-col md:flex-row items-center gap-6">
+<div class="relative flex-1 group w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-black/40 border border-white/10 rounded-xl py-3 pl-12 pr-6 text-on-surface font-label-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" placeholder="Search for a player..." type="text"/>
+</div>
+<div class="flex items-center gap-4 w-full md:w-auto">
+<select class="bg-black/40 border border-white/10 rounded-xl py-3 px-6 text-on-surface font-label-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none appearance-none cursor-pointer pr-12 min-w-[160px]">
+<option>This Season</option>
+<option>Last Season</option>
+<option>All Time</option>
+</select>
+<button class="bg-surface-container-high hover:bg-surface-container-highest p-3 rounded-xl border border-white/5 transition-all">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+</div>
+<!-- Leaderboard Table -->
+<div class="glass-card rounded-[24px] overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-white/5 border-b border-white/10">
+<th class="py-6 px-card-padding font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Rank</th>
+<th class="py-6 px-6 font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Player</th>
+<th class="py-6 px-6 font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Progress to Next Level</th>
+<th class="py-6 px-6 font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Guild</th>
+<th class="py-6 px-card-padding font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant text-right">Balance</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5">
+<!-- Row 4 -->
+<tr class="hover:bg-white/5 transition-all group">
+<td class="py-6 px-card-padding">
+<span class="font-label-md text-label-md text-on-surface-variant group-hover:text-primary">#04</span>
+</td>
+<td class="py-6 px-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface border border-white/10 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up of a Minecraft skin head with a robotic eye and dark hood. Styled for a high-end UI avatar container with subtle glows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsAduqgnR_6rUrWayRgYqLwd3jlB8MXGWTcDjOtu_CWpoKVGQw1_h9_PEn_XNxZXPpnh9AqKl7JGzzsO_lkCDDuHOTgY4y3P2Zr7nOvCavyHtC6HC44WbxfH7XC-2HCXSlz9-toSNjoC68f2f7prus5wfU7Ng_OTT4ely5ClFprYtyRnPtYJCuuttuPCPc98P_vNg6lcBzwCWcFu56lJ7RDkR4cMjTHGo14_h_XxgiFv5W7XWtGteW"/>
+</div>
+<div>
+<p class="font-headline-lg text-[16px] text-white">CryoSpecter</p>
+<p class="font-label-sm text-label-sm text-secondary uppercase">Knight</p>
+</div>
+</div>
+</td>
+<td class="py-6 px-6">
+<div class="w-full max-w-[200px]">
+<div class="flex justify-between items-center mb-1.5">
+<span class="text-[10px] text-on-surface-variant uppercase font-label-sm">LVL 82</span>
+<span class="text-[10px] text-primary font-label-sm">65%</span>
+</div>
+<div class="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="stat-bar-fill h-full bg-primary" style="width: 65%"></div>
+</div>
+</div>
+</td>
+<td class="py-6 px-6">
+<span class="font-label-md text-label-md text-on-surface-variant">FrostBound</span>
+</td>
+<td class="py-6 px-card-padding text-right">
+<span class="font-label-md text-label-md text-white">742,000 <span class="text-primary text-[10px]">⛁</span></span>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-white/5 transition-all group">
+<td class="py-6 px-card-padding">
+<span class="font-label-md text-label-md text-on-surface-variant group-hover:text-primary">#05</span>
+</td>
+<td class="py-6 px-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface border border-white/10 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up of a Minecraft skin head with a fire-themed mask and ember particles. Styled for a high-end UI avatar container with subtle glows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoaQMob5Baur_LuMVk-N8HW9ZHVM-S3RIUG6StmPQZk23W4gPR91iNrzC6cBcRwSvwx4clNBnDaaS05f6wmL7UXytlp0hwdsfeaBdiWgl3k3pLQHydV_ZGkztGSykQKozTeAoOcc9OQdRo0a72BkQeKH407EKw7hHxubYb8qqUOGsomvskNb1I5RIP_bLZh2H2IBw2A5k5_YL6Uf2pJx2lPEzV7qXxd-sHgRo70ZxTjT37WGIZQYpz"/>
+</div>
+<div>
+<p class="font-headline-lg text-[16px] text-white">Ignis_Fatuus</p>
+<p class="font-label-sm text-label-sm text-tertiary uppercase">VIP+</p>
+</div>
+</div>
+</td>
+<td class="py-6 px-6">
+<div class="w-full max-w-[200px]">
+<div class="flex justify-between items-center mb-1.5">
+<span class="text-[10px] text-on-surface-variant uppercase font-label-sm">LVL 79</span>
+<span class="text-[10px] text-primary font-label-sm">42%</span>
+</div>
+<div class="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="stat-bar-fill h-full bg-primary" style="width: 42%"></div>
+</div>
+</div>
+</td>
+<td class="py-6 px-6">
+<span class="font-label-md text-label-md text-on-surface-variant">Inferno</span>
+</td>
+<td class="py-6 px-card-padding text-right">
+<span class="font-label-md text-label-md text-white">689,120 <span class="text-primary text-[10px]">⛁</span></span>
+</td>
+</tr>
+<!-- Row 6 -->
+<tr class="hover:bg-white/5 transition-all group">
+<td class="py-6 px-card-padding">
+<span class="font-label-md text-label-md text-on-surface-variant group-hover:text-primary">#06</span>
+</td>
+<td class="py-6 px-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface border border-white/10 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up of a Minecraft skin head with an explorer's hat and steampunk goggles. Styled for a high-end UI avatar container with subtle glows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBx6rIzejgbaFx42t7zki41KDVaXmxSPTheVnIDU-zqGwKGqgDRYrv17KeTH5rCVJkDpA2WfflYr7wyd9bLMhrx3cPB_wuuqXiV4LE2zC-V7Wb-VQRZAC6F3axfc_1CDJsJ6ZZaHLTVKDzzSDFSaje-OgRGFC_el6uZySqcNNTYltHb8ELGyQfzpL5_8fbq9dWhmnuDM7Ft6J9VkYnBnd6tQ7ItqC5_4nfd9ZCQAV03HmwqVHVx8D-X"/>
+</div>
+<div>
+<p class="font-headline-lg text-[16px] text-white">AtlasExplorer</p>
+<p class="font-label-sm text-label-sm text-secondary uppercase">Explorer</p>
+</div>
+</div>
+</td>
+<td class="py-6 px-6">
+<div class="w-full max-w-[200px]">
+<div class="flex justify-between items-center mb-1.5">
+<span class="text-[10px] text-on-surface-variant uppercase font-label-sm">LVL 78</span>
+<span class="text-[10px] text-primary font-label-sm">88%</span>
+</div>
+<div class="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="stat-bar-fill h-full bg-primary" style="width: 88%"></div>
+</div>
+</div>
+</td>
+<td class="py-6 px-6">
+<span class="font-label-md text-label-md text-on-surface-variant">VoidWalkers</span>
+</td>
+<td class="py-6 px-card-padding text-right">
+<span class="font-label-md text-label-md text-white">550,000 <span class="text-primary text-[10px]">⛁</span></span>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="p-6 text-center border-t border-white/5 bg-surface-container-low">
+<button class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-all flex items-center gap-2 mx-auto">
+                    View Full Rankings (50+)
+                    <span class="material-symbols-outlined text-[18px]">expand_more</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-section-gap bg-surface-container-lowest border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-[1440px] mx-auto px-container-padding">
+<div class="col-span-1 md:col-span-1">
+<div class="font-headline-lg text-headline-lg text-primary mb-6">Osiris</div>
+<p class="font-body-md text-body-md text-on-surface-variant opacity-70">The premier Minecraft network for competitive play, immersive RPG experiences, and community-driven events.</p>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-white mb-6 uppercase tracking-widest">Network</h4>
+<ul class="space-y-4">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="/home.html">Home</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="/marketplace.html">Marketplace</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Wiki</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Support</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-white mb-6 uppercase tracking-widest">Community</h4>
+<ul class="space-y-4">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Discord</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Forum</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="/leaderboards.html">Leaderboards</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Staff Application</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-white mb-6 uppercase tracking-widest">Legal</h4>
+<ul class="space-y-4">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-section-gap pt-gutter border-t border-white/5 max-w-[1440px] mx-auto px-container-padding text-center">
+<p class="font-body-md text-body-md text-on-surface-variant opacity-50">© 2024 Osiris NETWORK. NOT AN OFFICIAL MINECRAFT PRODUCT. MOJANG AB OR MICROSOFT NOT AFFILIATED.</p>
+</div>
+</footer>
+<script>
+        function copyServerIP() {
+            const ip = 'play.osiris.net';
+            navigator.clipboard.writeText(ip);
+            const btn = event.currentTarget;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = 'Copied!';
+            setTimeout(() => { btn.innerHTML = originalText; }, 2000);
+        }
+        // Micro-interactions for podium bars
+        document.addEventListener('DOMContentLoaded', () => {
+            const bars = document.querySelectorAll('.stat-bar-fill');
+            bars.forEach(bar => {
+                const targetWidth = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = targetWidth;
+                }, 300);
+            });
+        });
+    </script>
+</body></html>
