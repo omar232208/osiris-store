@@ -1,0 +1,1 @@
+import{n as e,r as t,t as n}from"./index-DhB2qDXz.js";var r=t(e()),i=n();function a(){return(0,r.useEffect)(()=>{window.location.replace(`/home.html`)},[]),(0,i.jsx)(`div`,{className:`flex min-h-screen items-center justify-center bg-black text-white`,children:(0,i.jsx)(`p`,{className:`font-mono text-sm opacity-70`,children:`Entering Osiris…`})})}export{a as component};
