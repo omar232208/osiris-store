@@ -1,0 +1,24 @@
+# Osiris Server Plugin Configuration
+api-url: "https://osiris.vercel.app"
+
+# Commands to run when a player purchases an item
+# {player} will be replaced with the player's name
+items:
+  vip:
+    - "lp user {player} parent set vip"
+    - "give {player} diamond 1"
+  elite:
+    - "lp user {player} parent set elite"
+    - "give {player} diamond 5"
+  legend:
+    - "lp user {player} parent set legend"
+    - "give {player} diamond 10"
+  titan:
+    - "lp user {player} parent set titan"
+    - "give {player} diamond 20"
+  mythic:
+    - "lp user {player} parent set mythic"
+    - "give {player} netherite_ingot 1"
+  mythic wings:
+    - "give {player} elytra 1"
+    - "give {player} firework_rocket 64"
