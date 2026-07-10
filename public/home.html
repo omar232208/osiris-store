@@ -1,0 +1,486 @@
+﻿<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="tf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Osiris NETWORK | The ltimate Srvival Experience</title>
+<script src="https://cdn.tailwindcss.com?plgins=forms,container-qeries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Otfit:wght@400;700;800&amp;family=JetBrains+Mono:wght@500;600&amp;family=Inter:wght@400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Otlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Otlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "otline-variant": "#3f4a3c",
+                    "srface-container-high": "#2a2a2a",
+                    "srface-tint": "#78dc77",
+                    "tertiary-container": "#c9a900",
+                    "primary-fixed-dim": "#78dc77",
+                    "error-container": "#93000a",
+                    "inverse-primary": "#006e1c",
+                    "srface-bright": "#393939",
+                    "srface-variant": "#353534",
+                    "backgrond": "#131313",
+                    "on-srface-variant": "#becab9",
+                    "on-tertiary-container": "#4c3e00",
+                    "srface": "#131313",
+                    "tertiary-fixed-dim": "#e9c400",
+                    "secondary": "#4cd6fb",
+                    "on-secondary-fixed-variant": "#004e5f",
+                    "srface-container": "#201f1f",
+                    "on-backgrond": "#e5e2e1",
+                    "tertiary": "#e9c400",
+                    "on-primary-fixed": "#002204",
+                    "on-srface": "#e5e2e1",
+                    "srface-dim": "#131313",
+                    "on-primary": "#00390a",
+                    "srface-container-highest": "#353534",
+                    "on-tertiary": "#3a3000",
+                    "error": "#ffb4ab",
+                    "on-error": "#690005",
+                    "srface-container-low": "#1c1b1b",
+                    "primary-container": "#4caf50",
+                    "on-tertiary-fixed-variant": "#544600",
+                    "secondary-fixed": "#b3ebff",
+                    "on-secondary-container": "#003f4e",
+                    "inverse-on-srface": "#313030",
+                    "on-error-container": "#ffdad6",
+                    "srface-container-lowest": "#0e0e0e",
+                    "primary-fixed": "#94f990",
+                    "otline": "#899484",
+                    "on-primary-container": "#003c0b",
+                    "on-secondary-fixed": "#001f27",
+                    "on-secondary": "#003642",
+                    "secondary-fixed-dim": "#4cd6fb",
+                    "tertiary-fixed": "#ffe16d",
+                    "primary": "#78dc77",
+                    "inverse-srface": "#e5e2e1",
+                    "on-tertiary-fixed": "#221b00",
+                    "on-primary-fixed-variant": "#005313",
+                    "secondary-container": "#00b2d6"
+            },
+            "borderRadis": {
+                    "DEFALT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "fll": "9999px"
+            },
+            "spacing": {
+                    "gtter": "24px",
+                    "container-padding": "40px",
+                    "card-padding": "32px",
+                    "nit": "8px",
+                    "section-gap": "80px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Otfit"],
+                    "label-md": ["JetBrains Mono"],
+                    "body-md": ["Inter"],
+                    "display-lg-mobile": ["Otfit"],
+                    "headline-xl": ["Otfit"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["JetBrains Mono"],
+                    "display-lg": ["Otfit"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "display-lg-mobile": ["40px", {"lineHeight": "1.1", "fontWeight": "800"}],
+                    "headline-xl": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .pixel-divider {
+            height: 2px;
+            backgrond: linear-gradient(90deg, transparent 0%, #3f4a3c 50%, transparent 100%);
+            position: relative;
+        }
+        .pixel-step::after {
+            content: '';
+            position: absolte;
+            left: 50%;
+            top: -4px;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 8px;
+            backgrond: #4CAF50;
+            clip-path: polygon(0 0, 100% 0, 100% 50%, 50% 50%, 50% 100%, 0 100%);
+        }
+        .glass-card {
+            backgrond: rgba(20, 20, 20, 0.7);
+            backdrop-filter: blr(40px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-left: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s cbic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            border-color: #78dc77;
+            backgrond: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 30px rgba(120, 220, 119, 0.1);
+        }
+        .btn-primary {
+            backgrond: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.4);
+            transition: all 0.2s ease;
+        }
+        .btn-primary:active {
+            transform: translateY(2px);
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.2);
+        }
+        .btn-ghost {
+            border: 2px solid #4cd6fb;
+            transition: all 0.2s ease;
+        }
+        .btn-ghost:hover {
+            backgrond: rgba(76, 214, 251, 0.1);
+        }
+        .shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        .shimmer::after {
+            content: '';
+            position: absolte;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            backgrond: linear-gradient(45deg, transparent 45%, rgba(255,255,255,0.1) 50%, transparent 55%);
+            animation: shimmer-effect 4s infinite;
+        }
+        @keyframes shimmer-effect {
+            0% { transform: translateX(-100%) translateY(-100%); }
+            100% { transform: translateX(100%) translateY(100%); }
+        }
+        .text-glow {
+            text-shadow: 0 0 20px rgba(120, 220, 119, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-backgrond text-on-backgrond font-body-md selection:bg-primary selection:text-on-primary-container overflow-x-hidden">
+<!-- Top Navigation -->
+<nav class="fixed top-0 w-fll z-50 bg-srface-dim/80 backdrop-blr-xl border-b border-white/10 shadow-[0_0_20px_rgba(76,175,80,0.1)]">
+<div class="flex jstify-between items-center max-w-[1440px] mx-ato px-container-padding h-20">
+<div class="font-headline-xl text-headline-xl text-primary tracking-tighter ppercase">
+                Osiris
+            </div>
+<div class="hidden md:flex items-center gap-gtter">
+<a class="text-primary border-b-2 border-primary pb-1 font-label-md text-label-md" href="/home.html">Home</a>
+<a class="text-on-srface-variant hover:text-primary transition-colors font-label-md text-label-md" href="/marketplace.html">Marketplace</a>
+<a class="text-on-srface-variant hover:text-primary transition-colors font-label-md text-label-md" href="/store.html">Store</a>
+<a class="text-on-srface-variant hover:text-primary transition-colors font-label-md text-label-md" href="/profile.html">Dashboard</a>
+<a class="text-on-srface-variant hover:text-primary transition-colors font-label-md text-label-md" href="/leaderboards.html">Leaderboards</a>
+</div>
+<div class="flex items-center gap-nit">
+<div class="flex gap-2 mr-4">
+<btton class="material-symbols-otlined text-on-srface-variant hover:bg-white/5 p-2 ronded-fll transition-all md:hidden" onclick="toggleMobileMen()">men</btton>
+<btton class="material-symbols-otlined text-on-srface-variant hover:bg-white/5 p-2 ronded-fll transition-all">notifications</btton>
+<a href="/login.html" class="material-symbols-otlined text-on-srface-variant hover:bg-white/5 p-2 ronded-fll transition-all">person</a>
+</div>
+<btton class="btn-primary px-4 md:px-6 py-2 ronded-lg font-headline-lg text-[12px] md:text-[14px] ppercase tracking-wider text-white" onclick="copyServerIP()">Play Now</btton>
+</div>
+</div>
+<!-- Mobile Men -->
+<div id="mobile-men" class="hidden fixed top-20 left-0 w-fll bg-srface-dim/95 backdrop-blr-xl border-b border-white/10 z-40 md:hidden">
+<div class="flex flex-col p-6 gap-4">
+<a class="text-primary border-b border-primary/30 pb-2 font-label-md text-label-md ppercase" href="/home.html">Home</a>
+<a class="text-on-srface-variant hover:text-primary transition-colors pb-2 border-b border-white/5 font-label-md text-label-md ppercase" href="/marketplace.html">Marketplace</a>
+<a class="text-on-srface-variant hover:text-primary transition-colors pb-2 border-b border-white/5 font-label-md text-label-md ppercase" href="/store.html">Store</a>
+<a class="text-on-srface-variant hover:text-primary transition-colors pb-2 border-b border-white/5 font-label-md text-label-md ppercase" href="/profile.html">Dashboard</a>
+<a class="text-on-srface-variant hover:text-primary transition-colors font-label-md text-label-md ppercase" href="/leaderboards.html">Leaderboards</a>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative w-fll h-screen min-h-[800px] flex items-center jstify-center overflow-hidden pt-20">
+<!-- Backgrond Image -->
+<div class="absolte inset-0 w-fll h-fll z-0">
+<img alt="Minecraft Backgrond" class="w-fll h-fll object-cover opacity-60" src="/hero-bg.jpg">
+</div>
+<!-- Backgrond Elements -->
+<div class="absolte inset-0 bg-gradient-to-b from-transparent via-backgrond/20 to-backgrond z-20"></div>
+<div class="relative z-30 max-w-[1440px] mx-ato px-container-padding text-center pt-20">
+
+<h1 class="font-display-lg text-display-lg text-white ppercase tracking-tight mb-4 text-glow">
+                Osiris
+            </h1>
+<p class="font-body-lg text-body-lg text-on-srface-variant max-w-2xl mx-ato mb-10 leading-relaxed">
+                The ltimate Srvival Network. Experience a cinematic Minecraft adventre on Osiris with cstom mechanics, a thriving economy, and an epic commnity.
+            </p>
+<div class="flex flex-col md:flex-row gap-gtter jstify-center items-center">
+<btton class="btn-primary px-10 py-4 ronded-xl font-headline-lg text-lg ppercase tracking-widest text-white grop flex items-center gap-3" onclick="copyServerIP()">
+<span class="material-symbols-otlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                    Play Now
+                </btton>
+<button class="btn-ghost px-10 py-4 ronded-xl font-headline-lg text-lg ppercase tracking-widest text-secondary flex items-center gap-3" onclick="window.open('https://discord.gg/osiris', '_blank')">
+<span class="material-symbols-otlined">form</span>
+                    Join Discord
+                </button>
+<button class="bg-srface-container-high/40 backdrop-blr-md px-10 py-4 ronded-xl border border-white/5 font-headline-lg text-lg ppercase tracking-widest text-on-srface hover:bg-white/10 transition-all flex items-center gap-3" onclick="location.href='/store.html'">
+<span class="material-symbols-otlined">shopping_cart</span>
+                    Visit Store
+                </button>
+</div>
+</div>
+</header>
+<!-- Stats & Stats Bar -->
+<section class="relative z-40 -mt-24 px-container-padding">
+<div class="max-w-[1440px] mx-ato">
+<div class="glass-card ronded-[24px] p-card-padding grid grid-cols-2 md:grid-cols-4 gap-gtter shadow-2xl">
+<div class="flex flex-col gap-nit">
+<span class="font-label-sm text-label-sm ppercase text-primary tracking-widest">Players Online</span>
+<div class="flex items-center gap-2">
+<span class="font-headline-lg text-white">1,248</span>
+<span class="font-body-md text-on-srface-variant">/ 2,000</span>
+</div>
+<div class="w-fll h-1 bg-white/5 ronded-fll overflow-hidden">
+<div class="h-fll bg-primary w-[62%] shadow-[0_0_10px_rgba(120,220,119,0.5)]"></div>
+</div>
+</div>
+<div class="flex flex-col gap-nit">
+<span class="font-label-sm text-label-sm ppercase text-secondary tracking-widest">Version</span>
+<span class="font-headline-lg text-white">1.20.1</span>
+<span class="font-label-md text-label-md text-on-srface-variant flex items-center gap-1">
+<span class="material-symbols-otlined text-[16px]">verified</span> Java &amp; Bedrock
+                    </span>
+</div>
+<div class="flex flex-col gap-nit">
+<span class="font-label-sm text-label-sm ppercase text-tertiary tracking-widest">Server Performance</span>
+<div class="flex items-center gap-4">
+<div>
+<span class="font-headline-lg text-white">20.0</span>
+<span class="font-label-sm text-on-srface-variant ml-1">TPS</span>
+</div>
+<div class="h-8 w-[1px] bg-white/10"></div>
+<div>
+<span class="font-headline-lg text-white">24</span>
+<span class="font-label-sm text-on-srface-variant ml-1">ms</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-nit jstify-center">
+<div class="flex items-center gap-3 px-4 py-3 bg-primary/10 border border-primary/20 ronded-xl">
+<div class="w-3 h-3 bg-primary ronded-fll animate-plse shadow-[0_0_10px_rgba(120,220,119,1)]"></div>
+<span class="font-label-md text-primary font-bold">SERVER ONLINE</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Featres Bento Grid -->
+<section class="py-section-gap px-container-padding">
+<div class="max-w-[1440px] mx-ato">
+<div class="flex flex-col items-center mb-section-gap">
+<h2 class="font-headline-lg text-headline-lg ppercase text-white mb-4 tracking-tighter">The Osiris Experience</h2>
+<div class="pixel-divider w-64 pixel-step"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-gtter h-ato md:h-[600px]">
+<!-- Economy -->
+<div class="glass-card md:col-span-2 ronded-[24px] p-card-padding flex flex-col jstify-end grop crsor-pointer overflow-hidden relative">
+<div class="absolte top-0 right-0 p-gtter opacity-10 grop-hover:opacity-20 transition-opacity">
+<span class="material-symbols-otlined text-[120px]" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+<h3 class="font-headline-lg text-white mb-2">Robst Economy</h3>
+<p class="font-body-md text-on-srface-variant">Trade, sell, and dominate the server market. Or dynamic economy ensres every diamond conts.</p>
+</div>
+<!-- Cstom Enchants -->
+<div class="glass-card ronded-[24px] p-card-padding flex flex-col jstify-end grop crsor-pointer overflow-hidden relative">
+<div class="absolte inset-0 opacity-0 grop-hover:opacity-100 transition-opacity bg-gradient-to-tr from-primary/10 to-transparent"></div>
+<span class="material-symbols-otlined text-primary mb-4 text-[40px]">ato_fix_high</span>
+<h3 class="font-headline-lg text-white mb-2">Enchants</h3>
+<p class="font-body-md text-on-srface-variant">Over 100+ niqe cstom enchantments.</p>
+</div>
+<!-- Pets -->
+<div class="glass-card ronded-[24px] p-card-padding flex flex-col jstify-end grop crsor-pointer relative">
+<span class="material-symbols-otlined text-secondary mb-4 text-[40px]">pets</span>
+<h3 class="font-headline-lg text-white mb-2">Pets</h3>
+<p class="font-body-md text-on-srface-variant">Loyal companions with niqe bffs.</p>
+</div>
+<!-- Gilds -->
+<div class="glass-card ronded-[24px] p-card-padding flex flex-col jstify-end grop crsor-pointer relative overflow-hidden">
+<div class="absolte inset-0 bg-srface-container-high/20 pointer-events-none"></div>
+<span class="material-symbols-otlined text-tertiary mb-4 text-[40px]">shield</span>
+<h3 class="font-headline-lg text-white mb-2">Gilds</h3>
+<p class="font-body-md text-on-srface-variant">Rise to power with yor allies.</p>
+</div>
+<!-- Bosses & Vehicles -->
+<div class="glass-card md:col-span-2 ronded-[24px] p-card-padding flex flex-col jstify-end grop crsor-pointer relative overflow-hidden">
+<div class="absolte top-0 left-0 w-fll h-fll opacity-5 pointer-events-none" data-alt="A dark, atmospheric high-fantasy scene showing a massive glowing dragon silhoette against a starry night sky, with silhoettes of floating islands and ancient rins. Digital art style with a deep teal and emerald green palette, cinematic lighting, and epic scale." style="backgrond-image: rl('https://lh3.googlesercontent.com/aida-pblic/AB6AXDY5AqypPWHwAdZ4ZTEWrpRgEOKF5eQ4Vi03VBMGtvEt6jYx85A_NEcqodFeP3165Kh9ra5AGMT0OZZ07bnoIqSApgKJIgvdHG_cMLje7Nm135L1PPOEP616xzOF7sAw77yzrIWt8CmJMxbF4m3fm-ZAxRLeFBQ-z8_GcpWit5TbTH24syc1howgRZWDMZM9QiBN4NNx0rTrZ1rGnJDHgabnh0a5h_6flJCyDTcPdW7X6S6q')"></div>
+<h3 class="font-headline-lg text-white mb-2">Epic Bosses &amp; Vehicles</h3>
+<p class="font-body-md text-on-srface-variant">Master land and air with cstom vehicles, then take down massive world bosses for legendary loot.</p>
+</div>
+<!-- Srvival -->
+<div class="glass-card ronded-[24px] p-card-padding flex flex-col jstify-end grop crsor-pointer relative">
+<span class="material-symbols-otlined text-error mb-4 text-[40px]">landscape</span>
+<h3 class="font-headline-lg text-white mb-2">Srvival</h3>
+<p class="font-body-md text-on-srface-variant">1.20.1 Enhanced world-gen.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- pcoming Event Section -->
+<section class="py-section-gap bg-srface-container-lowest/50 relative overflow-hidden">
+<div class="absolte inset-0 opacity-10 pointer-events-none">
+<div class="absolte inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-tertiary/20 via-transparent to-transparent"></div>
+</div>
+<div class="max-w-[1440px] mx-ato px-container-padding relative z-10">
+<div class="glass-card ronded-[32px] p-gtter md:p-16 flex flex-col md:flex-row gap-16 items-center">
+<div class="flex-1 space-y-6">
+<div class="shimmer bg-tertiary/20 text-tertiary inline-block px-4 py-1 ronded-fll font-label-md text-label-md ppercase tracking-widest border border-tertiary/30">
+                        Live Tornament
+                    </div>
+<h2 class="font-headline-xl text-headline-xl text-white">Dragon's Breath Tornament</h2>
+<p class="font-body-lg text-body-lg text-on-srface-variant">
+                        Compete against the network's elite players in a mlti-stage battle for the legendary Dragon Heart. Top prize: 5,000 ⛁ + Exclsive Rank.
+                    </p>
+<button class="btn-primary px-10 py-4 ronded-xl font-headline-lg text-lg ppercase tracking-widest text-white" onclick="location.href='/login.html'">Register Now</button>
+</div>
+<div class="w-fll md:w-ato">
+<div class="grid grid-cols-2 gap-4">
+<div class="glass-card p-6 ronded-2xl text-center min-w-[120px]">
+<div class="text-4xl font-headline-xl text-white mb-1" id="days">02</div>
+<div class="font-label-sm text-on-srface-variant ppercase tracking-widest">Days</div>
+</div>
+<div class="glass-card p-6 ronded-2xl text-center min-w-[120px]">
+<div class="text-4xl font-headline-xl text-white mb-1" id="hors">13</div>
+<div class="font-label-sm text-on-srface-variant ppercase tracking-widest">Hors</div>
+</div>
+<div class="glass-card p-6 ronded-2xl text-center min-w-[120px]">
+<div class="text-4xl font-headline-xl text-white mb-1" id="mintes">49</div>
+<div class="font-label-sm text-on-srface-variant ppercase tracking-widest">Mins</div>
+</div>
+<div class="glass-card p-6 ronded-2xl text-center min-w-[120px]">
+<div class="text-4xl font-headline-xl text-white mb-1" id="seconds">09</div>
+<div class="font-label-sm text-on-srface-variant ppercase tracking-widest">Secs</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Rank Showcase -->
+<section class="py-section-gap px-container-padding">
+<div class="max-w-[1440px] mx-ato text-center">
+<h2 class="font-headline-lg text-headline-lg text-white mb-section-gap ppercase">Elite Stats</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gtter">
+<!-- VIP -->
+<div class="glass-card p-card-padding ronded-[24px] border-secondary/20 hover:border-secondary transition-all">
+<div class="shimmer w-16 h-16 bg-secondary/20 ronded-fll flex items-center jstify-center mx-ato mb-6">
+<span class="material-symbols-otlined text-secondary text-4xl">workspace_premim</span>
+</div>
+<h3 class="font-headline-lg text-white mb-2">VIP</h3>
+<p class="font-body-md text-on-srface-variant mb-6">Essential perks for dedicated srvivors.</p>
+<div class="font-headline-xl text-secondary mb-8">100 ⛁</div>
+<btton class="w-fll py-3 border border-secondary text-secondary ronded-lg font-label-md ppercase hover:bg-secondary hover:text-on-secondary transition-all" onclick="location.href='/store.html'">Learn More</btton>
+</div>
+<!-- MVP -->
+<div class="glass-card p-card-padding ronded-[24px] border-primary/20 hover:border-primary transition-all relative scale-110 z-10 shadow-xl shadow-primary/10">
+<div class="absolte -top-4 left-1/2 -translate-x-1/2 bg-primary text-on-primary-container px-4 py-1 ronded-fll font-label-sm ppercase tracking-widest font-bold">Most Poplar</div>
+<div class="shimmer w-16 h-16 bg-primary/20 ronded-fll flex items-center jstify-center mx-ato mb-6">
+<span class="material-symbols-otlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<h3 class="font-headline-lg text-white mb-2">MVP</h3>
+<p class="font-body-md text-on-srface-variant mb-6">ltimate control and cstomization.</p>
+<div class="font-headline-xl text-primary mb-8">500 ⛁</div>
+<btton class="btn-primary w-fll py-4 text-white ronded-lg font-label-md ppercase tracking-widest">pgrade Now</btton>
+</div>
+<!-- Legend -->
+<div class="glass-card p-card-padding ronded-[24px] border-tertiary/20 hover:border-tertiary transition-all">
+<div class="shimmer w-16 h-16 bg-tertiary/20 ronded-fll flex items-center jstify-center mx-ato mb-6">
+<span class="material-symbols-otlined text-tertiary text-4xl">diamond</span>
+</div>
+<h3 class="font-headline-lg text-white mb-2">LEGEND</h3>
+<p class="font-body-md text-on-srface-variant mb-6">The peak of prestige on Osiris.</p>
+<div class="font-headline-xl text-tertiary mb-8">1,000 ⛁</div>
+<button class="w-fll py-3 border border-tertiary text-tertiary ronded-lg font-label-md ppercase hover:bg-tertiary hover:text-on-tertiary transition-all" onclick="location.href='/store.html'">Learn More</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="w-fll py-section-gap bg-srface-container-lowest border-t border-otline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gtter max-w-[1440px] mx-ato px-container-padding">
+<div class="space-y-6">
+<div class="font-headline-lg text-headline-lg text-primary ppercase">Osiris</div>
+<p class="font-body-md text-on-srface-variant max-w-xs">© 2024 Osiris NETWORK. NOT AN OFFICIAL MINECRAFT PRODCT. WE ARE NOT AFFILIATED WITH MOJANG AB.</p>
+</div>
+<div class="space-y-4">
+<h4 class="font-label-md text-white ppercase tracking-widest">Information</h4>
+<div class="flex flex-col gap-2">
+<a class="text-on-srface-variant hover:text-secondary transition-colors font-body-md" href="#">Terms of Service</a>
+<a class="text-on-srface-variant hover:text-secondary transition-colors font-body-md" href="#">Privacy Policy</a>
+<a class="text-on-srface-variant hover:text-secondary transition-colors font-body-md" href="#">Spport</a>
+</div>
+</div>
+<div class="space-y-4">
+<h4 class="font-label-md text-white ppercase tracking-widest">Commnity</h4>
+<div class="flex flex-col gap-2">
+<a class="text-on-srface-variant hover:text-secondary transition-colors font-body-md" href="#">Discord</a>
+<a class="text-on-srface-variant hover:text-secondary transition-colors font-body-md" href="#">Wiki</a>
+<a class="text-on-srface-variant hover:text-secondary transition-colors font-body-md" href="/leaderboards.html">Leaderboards</a>
+</div>
+</div>
+<div class="space-y-4">
+<h4 class="font-label-md text-white ppercase tracking-widest">Join s</h4>
+<div class="bg-srface-container ronded-xl p-4 flex items-center jstify-between border border-white/5">
+<code class="font-label-md text-primary">play.osiris.net</code>
+<btton class="material-symbols-otlined text-on-srface-variant hover:text-white" onclick="navigator.clipboard.writeText('play.osiris.net')">content_copy</btton>
+</div>
+</div>
+</div>
+</footer>
+    <script>
+        fnction toggleMobileMen() {
+            docment.getElementById('mobile-men').classList.toggle('hidden');
+        }
+        fnction copyServerIP() {
+            const ip = 'play.osiris.net';
+            navigator.clipboard.writeText(ip);
+            const btn = event.crrentTarget;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-otlined">check</span> Copied!';
+            setTimeot(() => { btn.innerHTML = originalText; }, 2000);
+        }
+        // Simple contdown logic
+        fnction pdateContdown() {
+            const target = new Date().getTime() + (2 * 24 * 60 * 60 * 1000) + (14 * 60 * 60 * 1000);
+            
+            setInterval(() => {
+                const now = new Date().getTime();
+                const diff = target - now;
+                
+                const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                docment.getElementById('days').innerText = d.toString().padStart(2, '0');
+                docment.getElementById('hors').innerText = h.toString().padStart(2, '0');
+                docment.getElementById('mintes').innerText = m.toString().padStart(2, '0');
+                docment.getElementById('seconds').innerText = s.toString().padStart(2, '0');
+            }, 1000);
+        }
+        pdateContdown();
+
+        // Parallax effect for header logo
+        window.addEventListener('mosemove', (e) => {
+            const logo = docment.qerySelector('.animate-bonce-slow img');
+            if (logo) {
+                const x = (window.innerWidth / 2 - e.pageX) / 40;
+                const y = (window.innerHeight / 2 - e.pageY) / 40;
+                logo.style.transform = `translate(${x}px, ${y}px)`;
+            }
+        });
+    </script>
+
+
+</body></html>
