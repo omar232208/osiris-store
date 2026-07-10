@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Osiris NETWORK | Premium Store</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        :root {
+            --step-divider: linear-gradient(90deg, transparent 0%, rgba(120, 220, 119, 0.3) 50%, transparent 100%);
+        }
+
+        .pixel-step-divider {
+            height: 2px;
+            position: relative;
+            background: var(--step-divider);
+        }
+
+        .pixel-step-divider::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: -4px;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 10px;
+            background: #78dc77;
+            clip-path: polygon(0 40%, 40% 40%, 40% 0, 60% 0, 60% 40%, 100% 40%, 100% 60%, 60% 60%, 60% 100%, 40% 100%, 40% 60%, 0 60%);
+        }
+
+        .glass-card {
+            background: rgba(20, 20, 20, 0.8);
+            backdrop-filter: blur(60px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: #78dc77;
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .glow-green { box-shadow: 0 0 20px rgba(76, 175, 80, 0.4); }
+        .glow-gold { box-shadow: 0 0 20px rgba(233, 196, 0, 0.4); }
+        .glow-diamond { box-shadow: 0 0 20px rgba(76, 214, 251, 0.4); }
+
+        .rank-shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rank-shimmer::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 20%,
+                rgba(255, 255, 255, 0.3) 50%,
+                transparent 80%
+            );
+            animation: shimmer 4s infinite linear;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translate(-30%, -30%) rotate(0deg); }
+            100% { transform: translate(30%, 30%) rotate(0deg); }
+        }
+
+        .pixel-cursor {
+            caret-color: #78dc77;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "outline-variant": "#3f4a3c",
+                "surface-container-high": "#2a2a2a",
+                "surface-tint": "#78dc77",
+                "tertiary-container": "#c9a900",
+                "primary-fixed-dim": "#78dc77",
+                "error-container": "#93000a",
+                "inverse-primary": "#006e1c",
+                "surface-bright": "#393939",
+                "surface-variant": "#353534",
+                "background": "#131313",
+                "on-surface-variant": "#becab9",
+                "on-tertiary-container": "#4c3e00",
+                "surface": "#131313",
+                "tertiary-fixed-dim": "#e9c400",
+                "secondary": "#4cd6fb",
+                "on-secondary-fixed-variant": "#004e5f",
+                "surface-container": "#201f1f",
+                "on-background": "#e5e2e1",
+                "tertiary": "#e9c400",
+                "on-primary-fixed": "#002204",
+                "on-surface": "#e5e2e1",
+                "surface-dim": "#131313",
+                "on-primary": "#00390a",
+                "surface-container-highest": "#353534",
+                "on-tertiary": "#3a3000",
+                "error": "#ffb4ab",
+                "on-error": "#690005",
+                "surface-container-low": "#1c1b1b",
+                "primary-container": "#4caf50",
+                "on-tertiary-fixed-variant": "#544600",
+                "secondary-fixed": "#b3ebff",
+                "on-secondary-container": "#003f4e",
+                "inverse-on-surface": "#313030",
+                "on-error-container": "#ffdad6",
+                "surface-container-lowest": "#0e0e0e",
+                "primary-fixed": "#94f990",
+                "outline": "#899484",
+                "on-primary-container": "#003c0b",
+                "on-secondary-fixed": "#001f27",
+                "on-secondary": "#003642",
+                "secondary-fixed-dim": "#4cd6fb",
+                "tertiary-fixed": "#ffe16d",
+                "primary": "#78dc77",
+                "inverse-surface": "#e5e2e1",
+                "on-tertiary-fixed": "#221b00",
+                "on-primary-fixed-variant": "#005313",
+                "secondary-container": "#00b2d6"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "gutter": "24px",
+                "container-padding": "40px",
+                "card-padding": "32px",
+                "unit": "8px",
+                "section-gap": "80px"
+            },
+            "fontFamily": {
+                "headline-lg": ["Outfit"],
+                "label-md": ["JetBrains Mono"],
+                "body-md": ["Inter"],
+                "display-lg-mobile": ["Outfit"],
+                "headline-xl": ["Outfit"],
+                "body-lg": ["Inter"],
+                "label-sm": ["JetBrains Mono"],
+                "display-lg": ["Outfit"]
+            },
+            "fontSize": {
+                "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                "display-lg-mobile": ["40px", {"lineHeight": "1.1", "fontWeight": "800"}],
+                "headline-xl": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary/30">
+<!-- Top Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-surface-dim/80 backdrop-blur-xl border-b border-white/10 shadow-[0_0_20px_rgba(76,175,80,0.1)]">
+<div class="flex justify-between items-center max-w-[1440px] mx-auto px-container-padding h-20">
+<div class="font-headline-xl text-headline-xl text-primary tracking-tighter uppercase">Osiris</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="/home.html">Home</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="/marketplace.html">Marketplace</a>
+<a class="text-primary border-b-2 border-primary pb-1 font-label-md text-label-md" href="/store.html">Store</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="/profile.html">Dashboard</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="/leaderboards.html">Leaderboards</a>
+</div>
+<div class="flex items-center gap-3 md:gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors md:hidden" onclick="toggleMobileMenu()">menu</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">notifications</button>
+<a href="/login.html" class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">person</a>
+<button class="bg-primary-container text-on-primary-container font-headline-lg px-4 md:px-6 py-2 rounded-lg font-bold uppercase text-[12px] md:text-sm hover:glow-green transition-all active:translate-y-[2px]" onclick="copyServerIP()">Play Now</button>
+</div>
+</div>
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="hidden fixed top-20 left-0 w-full bg-surface-dim/95 backdrop-blur-xl border-b border-white/10 z-40 md:hidden">
+<div class="flex flex-col p-6 gap-4">
+<a class="text-on-surface-variant hover:text-primary transition-colors pb-2 border-b border-white/5 font-label-md text-label-md uppercase" href="/home.html">Home</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors pb-2 border-b border-white/5 font-label-md text-label-md uppercase" href="/marketplace.html">Marketplace</a>
+<a class="text-primary border-b border-primary/30 pb-2 font-label-md text-label-md uppercase" href="/store.html">Store</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors pb-2 border-b border-white/5 font-label-md text-label-md uppercase" href="/profile.html">Dashboard</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md uppercase" href="/leaderboards.html">Leaderboards</a>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="pt-32 pb-section-gap max-w-[1440px] mx-auto px-container-padding">
+<!-- Hero Store Section -->
+<section class="mb-section-gap">
+<div class="relative w-full rounded-[24px] overflow-hidden min-h-[400px] flex items-center p-card-padding">
+<div class="absolute inset-0 z-0">
+<div class="w-full h-full bg-cover bg-center brightness-50" data-alt="A cinematic Minecraft landscape with floating islands, enchanted ethereal lighting, and glowing particle effects in a deep green and emerald color palette, high-fidelity gaming aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAF5pY-zftnawSDgAj5bfhAX-4cm56l0VLSZP_w6nrHl6Z22ciuXeYb6q5nIxprB9fkJnfoYXQ7FGhW0aylashKgIGkjhqhTP9SFdjuplZP4mfTEh4glhBWwpBg7zfAI83IZI9WhXtl0XcqWA9UqR1qxyrBkmqXvEAwCe9vAdb1d_H8y_PP0Z02qMrv3d0-RHQZ6hgcBhQ35sOVikBg-NRSFQOwki0Az0-rt0y5bvxAA2GXbevoJZTa')"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent"></div>
+</div>
+<div class="relative z-10 max-w-2xl">
+<div class="inline-block px-3 py-1 rounded-full bg-primary/20 border border-primary text-primary font-label-sm text-label-sm mb-4 uppercase tracking-widest">Limited Edition</div>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-4">Ascend the Ranks</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8 max-w-lg">Unlock exclusive perks, cosmetic wings, and permanent boosts. Join the elite 1% of the Osiris Network.</p>
+<div class="flex gap-4">
+<button class="bg-primary px-8 py-4 rounded-xl font-headline-lg text-on-primary uppercase font-bold hover:glow-green transition-all">Shop Best Sellers</button>
+<button class="border-2 border-secondary px-8 py-4 rounded-xl font-headline-lg text-secondary uppercase font-bold hover:bg-secondary/10 transition-all">View All Perks</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Categories & Featured -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-section-gap">
+<!-- Navigation Sidebar -->
+<aside class="lg:col-span-3 space-y-4">
+<div class="glass-card rounded-[24px] p-card-padding">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase mb-6 tracking-tighter">Categories</h3>
+<nav class="space-y-2">
+<button class="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary border border-primary/20 transition-all">
+<span class="material-symbols-outlined">military_tech</span>
+<span class="font-label-md text-label-md font-bold">Ranks</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-white/5 transition-all">
+<span class="material-symbols-outlined">key</span>
+<span class="font-label-md text-label-md">Crate Keys</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-white/5 transition-all">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Cosmetics</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-white/5 transition-all">
+<span class="material-symbols-outlined">stadium</span>
+<span class="font-label-md text-label-md">Season Pass</span>
+</button>
+</nav>
+<div class="pixel-step-divider my-8"></div>
+<div class="bg-surface-container-high rounded-xl p-4 border border-outline-variant">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-2">Discount Active</p>
+<div class="flex items-center gap-2 text-tertiary">
+<span class="material-symbols-outlined font-bold">bolt</span>
+<span class="font-headline-lg text-headline-lg font-bold">25% Bonus</span>
+</div>
+<p class="text-[10px] font-label-md text-on-surface-variant mt-2">Code: SPRING24</p>
+</div>
+</div>
+</aside>
+<!-- Featured Product -->
+<div class="lg:col-span-9">
+<div class="glass-card rounded-[24px] overflow-hidden flex flex-col md:flex-row min-h-[300px] border-primary/30">
+<div class="md:w-1/2 relative group">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Close-up of legendary glowing mythic wings in a dark fantasy setting with emerald and gold sparkles, cinematic 3D render style." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDY1LyEpuFRjI7wQU-pNIqaHplqLUzNlgkWRJPXJdMINY5zCX_ewI1px8qwqOQW5ciarxbhPpLpmz02ZPtmTj6tdojCwrAWczcriM1U6WnzTGnL5SalvnlhZrysIur9w2FWXN1ZhkuOqWvS4hkirgxkag1AZTALexboH8SQoEIVZD91sR-HKtmd0nZilHXp7z7YQyV32FZzkNs9UIaFz4hHrOdfTisf6kf1xekpTowgr04XqRZa-emE')"></div>
+<div class="absolute inset-0 bg-primary/10 mix-blend-overlay"></div>
+<div class="absolute bottom-4 left-4 bg-background/80 backdrop-blur-md px-3 py-1 rounded-full text-primary font-label-sm text-label-sm border border-primary/20">PREMIUM COSMETIC</div>
+</div>
+<div class="md:w-1/2 p-card-padding flex flex-col justify-center">
+<div class="flex justify-between items-start mb-2">
+<h2 class="font-headline-xl text-headline-xl text-on-surface">Mythic Wings</h2>
+<div class="bg-error-container text-on-error-container px-3 py-1 rounded font-bold text-label-sm">NEW</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Equip the most prestigious cosmetic in the server. Features a dynamic particle trail and unique idle animation.</p>
+<div class="flex items-end gap-3 mb-8">
+<span class="font-headline-xl text-headline-xl text-tertiary">2,000 ⛁</span>
+<span class="font-body-md text-body-md text-on-surface-variant line-through mb-1">3,000 ⛁</span>
+</div>
+<button class="w-full bg-primary py-4 rounded-xl font-headline-lg text-on-primary font-bold uppercase glow-green transition-all hover:scale-[1.02] active:scale-[0.98]" onclick="buyItem('cosmetic_wings','Mythic Wings',3000)">Buy Now</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Ranks Section -->
+<section>
+<div class="flex items-center gap-6 mb-12">
+<h2 class="font-headline-xl text-headline-xl text-on-surface">Server Ranks</h2>
+<div class="flex-grow pixel-step-divider"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-gutter">
+<!-- VIP Rank -->
+<div class="glass-card rounded-[24px] p-6 flex flex-col border-white/5">
+<div class="rank-shimmer bg-surface-variant/50 w-full aspect-square rounded-xl mb-6 flex items-center justify-center border border-white/10">
+<span class="material-symbols-outlined text-6xl text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<div class="mb-auto">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-headline-lg text-headline-lg text-primary">VIP</h3>
+<span class="font-label-md text-label-md text-on-surface-variant">250 ⛁</span>
+</div>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-primary">check_circle</span>
+                                Access to /fly
+                            </li>
+<li class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-primary">check_circle</span>
+                                Green Prefix
+                            </li>
+<li class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-primary">check_circle</span>
+                                2x Vote Keys
+                            </li>
+</ul>
+</div>
+<button class="w-full py-3 rounded-lg border border-primary text-primary font-label-md text-label-md hover:bg-primary/10 transition-all uppercase font-bold" onclick="buyItem('rank_vip','VIP',250)">Select</button>
+</div>
+<!-- Elite Rank -->
+<div class="glass-card rounded-[24px] p-6 flex flex-col border-white/5">
+<div class="rank-shimmer bg-surface-variant/50 w-full aspect-square rounded-xl mb-6 flex items-center justify-center border border-white/10">
+<span class="material-symbols-outlined text-6xl text-secondary" style="font-variation-settings: 'FILL' 1;">shield</span>
+</div>
+<div class="mb-auto">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-headline-lg text-headline-lg text-secondary">Elite</h3>
+<span class="font-label-md text-label-md text-on-surface-variant">750 ⛁</span>
+</div>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">check_circle</span>
+                                All VIP Perks
+                            </li>
+<li class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">check_circle</span>
+                                Blue Prefix
+                            </li>
+<li class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">check_circle</span>
+                                /near command
+                            </li>
+</ul>
+</div>
+<button class="w-full py-3 rounded-lg border border-secondary text-secondary font-label-md text-label-md hover:bg-secondary/10 transition-all uppercase font-bold" onclick="buyItem('rank_elite','Elite',750)">Select</button>
+</div>
+<!-- Legend Rank -->
+<div class="glass-card rounded-[24px] p-6 flex flex-col border-tertiary/30 scale-105 relative z-10">
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-tertiary text-on-tertiary px-4 py-1 rounded-full font-label-sm text-label-sm font-bold shadow-lg">MOST POPULAR</div>
+<div class="rank-shimmer bg-tertiary/10 w-full aspect-square rounded-xl mb-6 flex items-center justify-center border border-tertiary/20">
+<span class="material-symbols-outlined text-6xl text-tertiary" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<div class="mb-auto">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-headline-lg text-headline-lg text-tertiary">Legend</h3>
+<span class="font-label-md text-label-md text-on-surface-variant">2,000 ⛁</span>
+</div>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-tertiary">check_circle</span>
+                                All Elite Perks
+                            </li>
+<li class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-tertiary">check_circle</span>
+                                Gold Prefix
+                            </li>
+<li class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-tertiary">check_circle</span>
+                                5x Home slots
+                            </li>
+</ul>
+</div>
+<button class="w-full py-3 rounded-lg bg-tertiary text-on-tertiary font-label-md text-label-md hover:glow-gold transition-all uppercase font-bold" onclick="buyItem('rank_legend','Legend',2000)">Purchase</button>
+</div>
+<!-- Titan Rank -->
+<div class="glass-card rounded-[24px] p-6 flex flex-col border-white/5">
+<div class="rank-shimmer bg-surface-variant/50 w-full aspect-square rounded-xl mb-6 flex items-center justify-center border border-white/10">
+<span class="material-symbols-outlined text-6xl text-on-surface" style="font-variation-settings: 'FILL' 1;">diamond</span>
+</div>
+<div class="mb-auto">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-headline-lg text-headline-lg text-on-surface">Titan</h3>
+<span class="font-label-md text-label-md text-on-surface-variant">5,000 ⛁</span>
+</div>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-primary">check_circle</span>
+                                All Legend Perks
+                            </li>
+<li class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-primary">check_circle</span>
+                                White Prefix
+                            </li>
+<li class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-primary">check_circle</span>
+                                1x Monthly Key
+                            </li>
+</ul>
+</div>
+<button class="w-full py-3 rounded-lg border border-white/20 text-on-surface font-label-md text-label-md hover:bg-white/5 transition-all uppercase font-bold" onclick="buyItem('rank_titan','Titan',5000)">Select</button>
+</div>
+<!-- Mythic Rank -->
+<div class="glass-card rounded-[24px] p-6 flex flex-col border-error/30 overflow-hidden relative">
+<div class="rank-shimmer bg-error/10 w-full aspect-square rounded-xl mb-6 flex items-center justify-center border border-error/20">
+<span class="material-symbols-outlined text-6xl text-error" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="mb-auto">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-headline-lg text-headline-lg text-error">Mythic</h3>
+<span class="font-label-md text-label-md text-on-surface-variant">10,000 ⛁</span>
+</div>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-error">check_circle</span>
+                                GOD MODE (Lobby)
+                            </li>
+<li class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-error">check_circle</span>
+                                Animated Prefix
+                            </li>
+<li class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-error">check_circle</span>
+                                Early Beta Access
+                            </li>
+</ul>
+</div>
+<button class="w-full py-3 rounded-lg bg-error text-on-error font-label-md text-label-md hover:shadow-[0_0_20px_rgba(255,180,171,0.4)] transition-all uppercase font-bold" onclick="buyItem('rank_mythic','Mythic',10000)">Purchase</button>
+</div>
+</div>
+</section>
+<!-- Information / FAQ Banner -->
+<section class="mt-section-gap grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="flex gap-4 p-6 rounded-[24px] bg-surface-container-low border border-outline-variant">
+<span class="material-symbols-outlined text-primary text-4xl">local_shipping</span>
+<div>
+<h4 class="font-headline-lg text-[20px] mb-1">Instant Delivery</h4>
+<p class="font-body-md text-label-sm text-on-surface-variant">Your items are delivered in-game within 5 minutes of purchase.</p>
+</div>
+</div>
+<div class="flex gap-4 p-6 rounded-[24px] bg-surface-container-low border border-outline-variant">
+<span class="material-symbols-outlined text-secondary text-4xl">security</span>
+<div>
+<h4 class="font-headline-lg text-[20px] mb-1">Secure Checkout</h4>
+<p class="font-body-md text-label-sm text-on-surface-variant">SSL encrypted transactions with 25+ payment methods.</p>
+</div>
+</div>
+<div class="flex gap-4 p-6 rounded-[24px] bg-surface-container-low border border-outline-variant">
+<span class="material-symbols-outlined text-tertiary text-4xl">support_agent</span>
+<div>
+<h4 class="font-headline-lg text-[20px] mb-1">24/7 Support</h4>
+<p class="font-body-md text-label-sm text-on-surface-variant">Having issues? Our team is available on Discord around the clock.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-section-gap bg-surface-container-lowest border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-[1440px] mx-auto px-container-padding">
+<div class="col-span-1 md:col-span-1">
+<div class="font-headline-lg text-headline-lg text-primary mb-4">Osiris</div>
+<p class="text-on-surface-variant font-body-md text-label-sm mb-6">Experience the future of Minecraft networks. Premium, polished, and player-focused.</p>
+</div>
+<div>
+<h4 class="font-headline-lg text-body-lg text-on-surface mb-4">Legal</h4>
+<div class="flex flex-col gap-2">
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md" href="#">Support</a>
+</div>
+</div>
+<div>
+<h4 class="font-headline-lg text-body-lg text-on-surface mb-4">Community</h4>
+<div class="flex flex-col gap-2">
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md" href="#">Discord</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md" href="#">Wiki</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md" href="#">Forums</a>
+</div>
+</div>
+<div>
+<h4 class="font-headline-lg text-body-lg text-on-surface mb-4">Newsletter</h4>
+<div class="relative">
+<input class="w-full bg-surface-container-high border-outline-variant rounded-lg px-4 py-3 focus:border-primary focus:ring-0 text-on-surface placeholder:text-on-surface-variant/50" placeholder="steve@craft.com" type="email"/>
+<button class="absolute right-2 top-1/2 -translate-y-1/2 bg-primary text-on-primary p-2 rounded-md material-symbols-outlined">send</button>
+</div>
+</div>
+</div>
+<div class="max-w-[1440px] mx-auto px-container-padding mt-12 pt-12 border-t border-outline-variant/30 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-on-surface-variant font-body-md text-label-sm text-center md:text-left">© 2024 Osiris NETWORK. NOT AN OFFICIAL MINECRAFT PRODUCT.</p>
+<div class="flex gap-6">
+<div class="w-10 h-6 bg-contain bg-no-repeat grayscale opacity-50 hover:opacity-100 transition-opacity" data-alt="Small icons of Mastercard, Visa, and PayPal in a sleek minimalist light-gray and dark-gray theme." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC09pCp05kP43oUJaaN6prk93dts_i8wuUQ3Aiw4ojpPDFk1moDipNwi05LuzqZ7YGJI0ickWjguOa5AdmJb_dlMAG5ddryuJgvm2aiW-uk2KLz9GD_0J2AX2EQYdd5fJHbU4yC_0OoOmsn-eYRjYdx0OasCYTjZP0zcJ4tRzFVacNS2EO_fo5IoSu1h0D9nU-gDIs0GFX0I1VXUYhV717BW67LajNajdQiISMIiPjOdo4Av_s6zrzb')"></div>
+<div class="w-10 h-6 bg-contain bg-no-repeat grayscale opacity-50 hover:opacity-100 transition-opacity" data-alt="Small icons of Bitcoin and Ethereum in a sleek minimalist light-gray and dark-gray theme." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCjDau8sWKVTk70Dl84CCBI5fxh8N6ZIMsaAGavM2LqSyUMpfI-ORkgV9772KJALPqVTjDq-hXsI70XRMmozZTjyTxLrH_SneufUNjG8-9cbFVdi91FesVBjicu05TJ4cQMmZWAHnA3BkBZcyCTPXcNizMH4IGYWJZlBY_eawt-m4XGOXI4eHQB7n0NcwKevV6uL0S8VOcj_0ln2HSvAouE-a0Vo4m4xmjBzqPjOzCL1HUkRutkpQuU')"></div>
+</div>
+</div>
+</footer>
+<script>
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+        function copyServerIP() {
+            const ip = 'play.osiris.net';
+            navigator.clipboard.writeText(ip);
+            const btn = event.currentTarget;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = 'Copied!';
+            setTimeout(() => { btn.innerHTML = originalText; }, 2000);
+        }
+
+        function getSession() {
+            const s = localStorage.getItem('osiris_session');
+            return s ? JSON.parse(s) : null;
+        }
+
+        async function buyItem(itemId, itemName, cost) {
+            const session = getSession();
+            if (!session) { alert('Please login first!'); window.location.href = '/login.html'; return; }
+            if (session.gold < cost) { alert('Not enough gold! You need ' + cost + ' \u26C1 but have ' + session.gold + ' \u26C1'); return; }
+            const btn = event.currentTarget;
+            const orig = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Processing...';
+            try {
+                const r = await fetch('/api/store/buy', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ uuid: session.uuid, itemId, itemName, cost }),
+                });
+                const data = await r.json();
+                if (data.error) { alert(data.error); return; }
+                session.gold = data.gold;
+                localStorage.setItem('osiris_session', JSON.stringify(session));
+                alert(data.message);
+                btn.innerHTML = 'Purchased!';
+                setTimeout(() => { btn.innerHTML = orig; btn.disabled = false; }, 2000);
+            } catch {
+                alert('Purchase failed. Try again later.');
+                btn.innerHTML = orig;
+                btn.disabled = false;
+            }
+        }
+        // Micro-interactions
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.classList.add('translate-y-[2px]');
+            });
+            button.addEventListener('mouseup', () => {
+                button.classList.remove('translate-y-[2px]');
+            });
+            button.addEventListener('mouseleave', () => {
+                button.classList.remove('translate-y-[2px]');
+            });
+        });
+
+        // Simple parallax effect for Hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroBg = document.querySelector('[data-alt*="Minecraft landscape"]');
+            if (heroBg) {
+                heroBg.style.transform = `translateY(${scrolled * 0.4}px)`;
+            }
+        });
+    </script>
+</body></html>
